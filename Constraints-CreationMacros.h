@@ -230,3 +230,8 @@
 #define RESIST_V(VIEW, PRIORITY) [VIEW setContentCompressionResistancePriority:(PRIORITY) forOrientation:NSLayoutConstraintOrientationVertical]
 #define RESIST(VIEW, PRIORITY) {RESIST_H(VIEW, PRIORITY); RESIST_V(VIEW, PRIORITY);}
 #endif
+
+// Removing constraints
+#define CLEAN_VIEWS(VIEWS) for (VIEW_CLASS *view in VIEWS) \
+    for (NSLayoutConstraint *constraint in [view constraintsReferencingView:view]) \
+    [constraint remove];
