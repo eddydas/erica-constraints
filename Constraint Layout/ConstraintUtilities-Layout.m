@@ -208,18 +208,14 @@ void pseudoDistributeCenters(NSArray *views, NSLayoutFormatOptions alignment, NS
     BOOL horizontal = IS_HORIZONTAL_ALIGNMENT(alignment);
     
     // Placement is orthogonal to that alignment
-    NSLayoutAttribute placementAttribute = horizontal ? NSLayoutAttributeCenterY : NSLayoutAttributeCenterX;
-    NSLayoutAttribute endAttribute = horizontal ? NSLayoutAttributeCenterY : NSLayoutAttributeRight;
-    
-    // Cast from NSLayoutFormatOptions to NSLayoutAttribute
-    NSLayoutAttribute alignmentAttribute = attributeForAlignment(alignment);
+    NSLayoutAttribute placementAttribute = horizontal ? NSLayoutAttributeCenterX : NSLayoutAttributeCenterY;
     
     // Iterate through the views
     NSLayoutConstraint *constraint;
     for (int i = 0; i < views.count; i++)
     {
         VIEW_CLASS *view = views[i];
-        CGFloat multiplier = ((CGFloat) i + 0.5) / ((CGFloat) views.count);
+        CGFloat multiplier = (2*i + 2) / (CGFloat)([views count] + 1);
         
         // Install the item position
         constraint = [NSLayoutConstraint
@@ -227,21 +223,10 @@ void pseudoDistributeCenters(NSArray *views, NSLayoutFormatOptions alignment, NS
                       attribute:placementAttribute
                       relatedBy:NSLayoutRelationEqual
                       toItem:view.superview
-                      attribute:endAttribute
+                      attribute:placementAttribute
                       multiplier: multiplier
                       constant: 0];
-        [constraint install:priority];
-        
-        // Install alignment
-        constraint = [NSLayoutConstraint
-                      constraintWithItem:views[0]
-                      attribute:alignmentAttribute
-                      relatedBy:NSLayoutRelationEqual
-                      toItem: view
-                      attribute:alignmentAttribute
-                      multiplier:1
-                      constant:0];
-        [constraint install:priority];
+        [constraint install:priority];        
     }
 }
 
