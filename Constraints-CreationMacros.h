@@ -235,3 +235,5 @@
 #define CLEAN_VIEWS(VIEWS) for (VIEW_CLASS *view in VIEWS) \
     for (NSLayoutConstraint *constraint in [view constraintsReferencingView:view]) \
     [constraint remove];
+#define CLEAN_VIEW(VIEW) for (NSLayoutConstraint *constraint in [VIEW constraintsReferencingView:VIEW]) \
+    [constraint remove];
