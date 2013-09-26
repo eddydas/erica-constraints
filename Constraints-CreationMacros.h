@@ -5,6 +5,9 @@
  *
  *
  */
+#pragma mark - Full Free Constrain shorthand
+#define CONSTRAINT_FULL_CONSTRAINT(VIEW1, ATTR1, OPERATOR, VIEW2, ATTR2, MULTIPLER, CONSTANT) [NSLayoutConstraint constraintWithItem: VIEW1 attribute: NSLayoutAttribute ## ATTR1 relatedBy: NSLayoutRelation ## OPERATOR toItem: VIEW2 attribute: NSLayoutAttribute ## ATTR2 multiplier: MULTIPLER constant: CONSTANT]
+
 
 #pragma mark - Position X & Y (not leading & Y)
 #define CONSTRAINT_POSITIONING_X(VIEW, X) [NSLayoutConstraint constraintWithItem: VIEW attribute: NSLayoutAttributeLeft relatedBy: NSLayoutRelationEqual toItem: [VIEW superview] attribute: NSLayoutAttributeLeft multiplier: 1.0f constant: X]
@@ -101,6 +104,11 @@
  *
  *
  */
+
+// Full Free Constrain Shorthand
+// E.g.     CONSTRAIN_FULL(logoImageView, Height, LessThanOrEqual, logoImageView.superview, Height, 0.5, 0);
+// Pay attention to capitalization since they are appended by ## preprocessor only
+#define CONSTRAIN_FULL(VIEW1, ATTR1, OPERATOR, VIEW2, ATTR2, MULTIPLER, CONSTANT) INSTALL_CONSTRAINTS(DEFAULT_LAYOUT_PRIORITY, @"Full Constrain", CONSTRAINT_FULL_CONSTRAINT(VIEW1, ATTR1, OPERATOR, VIEW2, ATTR2, MULTIPLER, CONSTANT))
 
 // Centering
 #pragma mark - Centering
