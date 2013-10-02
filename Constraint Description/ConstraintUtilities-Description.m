@@ -996,10 +996,13 @@
 // DEBUG ONLY. Do not ship with this code
 - (void) testAmbiguity
 {
+#ifdef DEBUG
     NSLog(@"<%@:0x%0x>: %@", self.class.description, (int)self, self.hasAmbiguousLayout ? @"Ambiguous" : @"Unambiguous");
     
     for (VIEW_CLASS *view in self.subviews)
         [view testAmbiguity];
+#endif
+    
 }
 
 // Swap ignored to error if you need warning
@@ -1008,7 +1011,11 @@
 // DEBUG ONLY. For somewhat obvious reasons, do not ship with this code
 - (NSString *) trace
 {
+#ifdef DEBUG
     return [self.window performSelector:@selector(_autolayoutTrace)];
+#else
+    return @"";
+#endif
 }
 @end
 
