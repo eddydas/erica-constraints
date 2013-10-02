@@ -215,8 +215,7 @@ void pseudoDistributeCenters(NSArray *views, NSLayoutFormatOptions alignment, NS
     for (int i = 0; i < views.count; i++)
     {
         VIEW_CLASS *view = views[i];
-        CGFloat multiplier = (2*i + 2) / (CGFloat)([views count] + 1);
-        
+        CGFloat multiplier = ((i+1)*2-1)/(((CGFloat)[views count]));
         // Install the item position
         constraint = [NSLayoutConstraint
                       constraintWithItem:view
